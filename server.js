@@ -22,7 +22,6 @@ app.listen(6969);
 
 function passwordProtected(req, res, next) {
 	res.set('WWW-Authenticate', 'Basic realm="Todo App"');
-	// username = useapp, password = murye
 	if (req.headers.authorization == 'Basic dXNlYXBwOm11cnll') {
 		next();
 	} else {
