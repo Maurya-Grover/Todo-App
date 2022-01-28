@@ -1,13 +1,13 @@
 let express = require('express');
+let dotenv = require('dotenv');
 let mongodb = require('mongodb');
 let sanitizeHTML = require('sanitize-html');
+dotenv.config();
 let app = express();
 
 app.use(express.static('public'));
 
-let connectionString =
-	'mongodb+srv://admin:murye@cluster0.tt2xr.mongodb.net/toDoApp?retryWrites=true&w=majority';
-const client = new mongodb.MongoClient(connectionString, {
+const client = new mongodb.MongoClient(process.env.CONNECTIONSTRING, {
 	useNewUrlParser: true,
 	useUnifiedTopology: true,
 });
@@ -18,7 +18,7 @@ async function fetchDatabase() {
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.listen(process.env.PORT || 6969);
+app.listen(process.env.PORT);
 
 function passwordProtected(req, res, next) {
 	res.set('WWW-Authenticate', 'Basic realm="Todo App"');
